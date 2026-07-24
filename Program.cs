@@ -1,5 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using BookStoreMVC.Models;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<BookStoreContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("BookStoreConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("BookStoreConnection"))
+    ));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
