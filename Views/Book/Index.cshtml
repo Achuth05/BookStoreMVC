@@ -1,0 +1,113 @@
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h2 class="fw-bold mb-4">
+
+    Book Collection
+
+</h2>
+
+<div class="row mb-4">
+
+    <div class="col-md-5">
+
+        <input type="text"
+               class="form-control"
+               placeholder="Search books...">
+
+    </div>
+
+    <div class="col-md-3">
+
+        <select class="form-select">
+
+            <option>All Categories</option>
+
+            <option>Programming</option>
+
+            <option>Fiction</option>
+
+            <option>Science</option>
+
+            <option>History</option>
+
+        </select>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <select class="form-select">
+
+            <option>Sort By</option>
+
+            <option>Price Low → High</option>
+
+            <option>Price High → Low</option>
+
+            <option>Name A → Z</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    @for(int i=1;i<=8;i++)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+            <div class="card shadow h-100">
+
+                <img src="https://picsum.photos/300/400?random=@i"
+                     class="card-img-top">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        Sample Book @i
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Author Name
+
+                    </p>
+
+                    <h6>
+
+                        ⭐⭐⭐⭐⭐
+
+                    </h6>
+
+                    <h4 class="text-primary">
+
+                        ₹599
+
+                    </h4>
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <a asp-controller="Book"
+                       asp-action="Details"
+                       class="btn btn-primary w-100">
+
+                        View Details
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>
