@@ -1,0 +1,80 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h4>📂 Categories</h4>
+
+                    <p>Manage book categories</p>
+
+                    <a asp-action="Categories"
+                       asp-controller="Admin"
+                       class="btn btn-primary">
+                        Manage Categories
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h4>📚 Books</h4>
+
+                    <p>Manage books</p>
+
+                    <a asp-action="Books"
+                       asp-controller="Admin"
+                       class="btn btn-success">
+                        Manage Books
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h4>📦 Orders</h4>
+
+                    <p>View customer orders</p>
+
+                    <a asp-action="Orders"
+                       asp-controller="Admin"
+                       class="btn btn-warning">
+                        Manage Orders
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,37 @@
+@model BookStoreMVC.Models.Category
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="container mt-5">
+
+    <h2>Edit Category</h2>
+
+    <hr/>
+
+    <form asp-action="EditCategory" method="post">
+
+        <input asp-for="CategoryId" type="hidden"/>
+
+        <div class="mb-3">
+
+            <label asp-for="CategoryName"></label>
+
+            <input asp-for="CategoryName" class="form-control"/>
+
+        </div>
+
+        <button class="btn btn-primary">
+            Update
+        </button>
+
+        <a asp-action="Categories"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
