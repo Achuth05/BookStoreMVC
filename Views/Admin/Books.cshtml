@@ -1,0 +1,92 @@
+@model IEnumerable<BookStoreMVC.Models.Book>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Manage Books";
+}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h2>Manage Books</h2>
+
+        <a asp-action="CreateBook"
+           class="btn btn-success">
+
+            + Add Book
+
+        </a>
+
+    </div>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Title</th>
+
+                <th>Author</th>
+
+                <th>Price</th>
+
+                <th>Stock</th>
+
+                <th width="180">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @foreach(var book in Model)
+        {
+            <tr>
+
+                <td>
+
+                    <img src="@book.ImageUrl"
+                         width="60"
+                         height="80"
+                         style="object-fit:cover"/>
+
+                </td>
+
+                <td>@book.Title</td>
+
+                <td>@book.Author</td>
+
+                <td>₹@book.Price</td>
+
+                <td>@book.Stock</td>
+
+                <td>
+
+                    <a asp-action="EditBook"
+                    asp-route-id="@book.BookId"
+                    class="btn btn-primary btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="DeleteBook"
+                    asp-route-id="@book.BookId"
+                    class="btn btn-danger btn-sm"
+                    onclick="return confirm('Delete this book?');">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+</div>

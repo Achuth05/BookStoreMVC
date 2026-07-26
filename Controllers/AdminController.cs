@@ -1,5 +1,7 @@
 using BookStoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 namespace BookStoreMVC.Controllers
 {
@@ -81,9 +83,120 @@ namespace BookStoreMVC.Controllers
 
         public IActionResult Books()
         {
-            return Content("Books Page");
-        }
+            var books = _context.Books.ToList();
 
+            return View(books);
+        }
+        public IActionResult CreateBook()
+        {
+            ViewBag.Categories = _context.Categories
+                .Select(c => new SelectListItem
+                {
+                    Value = c.CategoryId.ToString(),
+                    Text = c.CategoryName
+                }).ToList();
+
+            var imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+            ViewBag.Images = Directory.GetFiles(imageFolder)
+                                    .Select(Path.GetFileName)
+                                    .ToList();
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateBook(Book book)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CategoryId.ToString(),
+                        Text = c.CategoryName
+                    }).ToList();
+
+                var imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+                ViewBag.Images = Directory.GetFiles(imageFolder)
+                                        .Select(Path.GetFileName)
+                                        .ToList();
+
+                return View(book);
+            }
+
+            _context.Books.Add(book);
+            _context.SaveChanges();
+
+            return RedirectToAction("Books");
+        }
+        // GET
+        public IActionResult EditBook(int id)
+        {
+            var book = _context.Books.Find(id);
+
+            if (book == null)
+                return NotFound();
+
+            ViewBag.Categories = _context.Categories
+                .Select(c => new SelectListItem
+                {
+                    Value = c.CategoryId.ToString(),
+                    Text = c.CategoryName
+                }).ToList();
+
+            var imageFolder = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "images");
+
+            ViewBag.Images = Directory.GetFiles(imageFolder)
+                                    .Select(Path.GetFileName)
+                                    .ToList();
+
+            return View(book);
+        }
+        [HttpPost]
+        public IActionResult EditBook(Book book)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CategoryId.ToString(),
+                        Text = c.CategoryName
+                    }).ToList();
+
+                var imageFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images");
+
+                ViewBag.Images = Directory.GetFiles(imageFolder)
+                                        .Select(Path.GetFileName)
+                                        .ToList();
+
+                return View(book);
+            }
+
+            _context.Books.Update(book);
+            _context.SaveChanges();
+
+            return RedirectToAction("Books");
+        }
+        public IActionResult DeleteBook(int id)
+        {
+            var book = _context.Books.Find(id);
+
+            if (book == null)
+                return NotFound();
+
+            _context.Books.Remove(book);
+            _context.SaveChanges();
+
+            return RedirectToAction("Books");
+        }
         public IActionResult Orders()
         {
             return Content("Orders Page");

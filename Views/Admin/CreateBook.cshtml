@@ -1,0 +1,123 @@
+@model BookStoreMVC.Models.Book
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Add Book";
+}
+
+<div class="container mt-5">
+
+    <h2>Add Book</h2>
+
+    <hr />
+
+    <form asp-action="CreateBook" method="post">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <label>Title</label>
+
+                <input asp-for="Title" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Author</label>
+
+                <input asp-for="Author" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Publisher</label>
+
+                <input asp-for="Publisher" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Language</label>
+
+                <input asp-for="Language" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Price</label>
+
+                <input asp-for="Price" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Stock</label>
+
+                <input asp-for="Stock" class="form-control"/>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Category</label>
+
+                <select asp-for="CategoryId"
+                        asp-items="ViewBag.Categories"
+                        class="form-select">
+
+                    <option value="">Select Category</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label>Book Image</label>
+
+                <select asp-for="ImageUrl"
+                        class="form-select">
+
+                    <option value="">Select Image</option>
+
+                    @foreach(var image in ViewBag.Images)
+                    {
+                        <option value="/images/@image">
+                            @image
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-12 mb-3">
+
+                <label>Description</label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="4"></textarea>
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-success">
+            Save Book
+        </button>
+
+        <a asp-action="Books"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
