@@ -1,83 +1,92 @@
+@model BookStoreMVC.Models.Book
+
 @{
     ViewData["Title"] = "Book Details";
 }
 
-<div class="row mt-5">
+<div class="container mt-5">
 
-    <div class="col-md-4">
+    <div class="row">
 
-        <img src="https://picsum.photos/450/650"
-             class="img-fluid rounded shadow">
+        <div class="col-md-4">
 
-    </div>
-
-    <div class="col-md-8">
-
-        <h2 class="fw-bold">
-            Clean Code
-        </h2>
-
-        <p class="text-muted fs-5">
-            Robert C. Martin
-        </p>
-
-        <div class="mb-3">
-
-            <span class="badge bg-primary">
-                Programming
-            </span>
-
-            <span class="badge bg-success">
-                Bestseller
-            </span>
+            <img src="@Model.ImageUrl"
+                 class="img-fluid rounded shadow"
+                 style="height:500px; width:100%; object-fit:cover;" />
 
         </div>
 
-        <h3 class="text-primary mb-3">
-            ₹699
-        </h3>
+        <div class="col-md-8">
 
-        <p class="lead">
+            <h2 class="fw-bold">
+                @Model.Title
+            </h2>
 
-            Clean Code is a handbook of agile software craftsmanship
-            that teaches developers how to write readable,
-            maintainable and efficient code.
+            <h5 class="text-muted mb-3">
+                by @Model.Author
+            </h5>
 
-        </p>
+            <hr />
 
-        <hr>
+            <p>
+                <strong>Publisher:</strong>
+                @Model.Publisher
+            </p>
 
-        <ul class="list-group mb-4">
+            <p>
+                <strong>Language:</strong>
+                @Model.Language
+            </p>
 
-            <li class="list-group-item">
-                <strong>Publisher:</strong> Pearson
-            </li>
+            <p>
+                <strong>Category:</strong>
+                @Model.Category?.CategoryName
+            </p>
 
-            <li class="list-group-item">
-                <strong>Language:</strong> English
-            </li>
+            <p>
+                <strong>Available Stock:</strong>
+                @Model.Stock
+            </p>
 
-            <li class="list-group-item">
-                <strong>Pages:</strong> 464
-            </li>
+            <h3 class="text-success fw-bold mb-4">
+                ₹@Model.Price
+            </h3>
 
-            <li class="list-group-item">
-                <strong>ISBN:</strong> 9780132350884
-            </li>
+            <h5>Description</h5>
 
-        </ul>
+            <p class="text-muted">
+                @Model.Description
+            </p>
 
-        <button class="btn btn-success btn-lg me-2">
+            <div class="mt-4">
 
-            Add to Cart
+                <form asp-action="AddToCart"
+                    asp-controller="Book"
+                    method="post"
+                    class="d-inline">
 
-        </button>
+                    <input type="hidden"
+                        name="bookId"
+                        value="@Model.BookId" />
 
-        <button class="btn btn-outline-primary btn-lg">
+                    <button type="submit"
+                            class="btn btn-warning btn-lg me-2">
 
-            Buy Now
+                        Add to Cart
 
-        </button>
+                    </button>
+
+                </form>
+
+                <a class="btn btn-success btn-lg">
+
+                    Buy Now
+
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 

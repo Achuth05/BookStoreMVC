@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<BookStoreMVC.Models.Book>
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -49,44 +50,47 @@
 
 </div>
 
-<h2 class="mb-4 fw-bold">
+<div class="text-center mb-4">
 
-    Featured Books
+    <h2 class="fw-bold">
+        Featured Books
+    </h2>
 
-</h2>
+    <p class="text-muted">
+        Explore our latest and most popular books.
+    </p>
 
+</div>
 <div class="row">
 
-    @for(int i=1;i<=4;i++)
+    @foreach (var book in Model)
     {
-        <div class="col-md-3 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
 
             <div class="card shadow h-100">
 
-                <img src="https://picsum.photos/300/400?random=@i"
-                     class="card-img-top">
+                <img src="@book.ImageUrl"
+                    class="card-img-top"
+                    style="height:320px;object-fit:cover;" />
 
                 <div class="card-body">
 
-                    <h5 class="card-title">
+                    <h5>@book.Title</h5>
 
-                        Sample Book @i
+                    <p class="text-muted">@book.Author</p>
 
+                    <h5 class="text-primary">
+                        ₹@book.Price
                     </h5>
 
-                    <p>
+                </div>
 
-                        Author Name
+                <div class="card-footer bg-white">
 
-                    </p>
-
-                    <h4 class="text-primary">
-
-                        ₹599
-
-                    </h4>
-
-                    <a class="btn btn-primary w-100">
+                    <a asp-controller="Book"
+                    asp-action="Details"
+                    asp-route-id="@book.BookId"
+                    class="btn btn-primary w-100">
 
                         View Details
 
