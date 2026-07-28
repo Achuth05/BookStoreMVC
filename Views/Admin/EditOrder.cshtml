@@ -1,0 +1,75 @@
+@model BookStoreMVC.Models.Order
+
+@{
+    ViewData["Title"] = "Update Order";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-dark text-white">
+
+            <h3 class="mb-0">
+
+                Update Order #@Model.OrderId
+
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="EditOrder"
+                  method="post">
+
+                <input asp-for="OrderId" type="hidden" />
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Order Status
+
+                    </label>
+
+                    <select asp-for="Status"
+                            class="form-select">
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Processing">
+                            Processing
+                        </option>
+
+                        <option value="Delivered">
+                            Delivered
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    Save Changes
+
+                </button>
+
+                <a asp-action="ManageOrders"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

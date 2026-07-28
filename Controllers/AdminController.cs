@@ -2,6 +2,7 @@ using BookStoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreMVC.Controllers
 {
@@ -85,7 +86,7 @@ namespace BookStoreMVC.Controllers
         {
             var books = _context.Books.ToList();
 
-            return View(books);
+            return View("Books",books);
         }
         public IActionResult CreateBook()
         {
@@ -197,9 +198,37 @@ namespace BookStoreMVC.Controllers
 
             return RedirectToAction("Books");
         }
-        public IActionResult Orders()
+        public IActionResult ManageOrders()
         {
-            return Content("Orders Page");
+            var orders = _context.Orders
+                                .Include(o => o.User)
+                                .OrderByDescending(o => o.OrderDate)
+                                .ToList();
+
+            return View(orders);
+        }
+        public IActionResult EditOrder(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+
+            if (order == null)
+                return NotFound();
+
+            return View(order);
+        }
+        [HttpPost]
+        public IActionResult EditOrder(Order model)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == model.OrderId);
+
+            if (order == null)
+                return NotFound();
+
+            order.Status = model.Status;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageOrders");
         }
     }
 }

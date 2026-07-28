@@ -1,0 +1,93 @@
+@model IEnumerable<BookStoreMVC.Models.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h2>Manage Orders</h2>
+
+    </div>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Order ID</th>
+
+                <th>Customer</th>
+
+                <th>Date</th>
+
+                <th>Total</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @foreach(var order in Model)
+        {
+            <tr>
+
+                <td>#@order.OrderId</td>
+
+                <td>@order.User?.Name</td>
+
+                <td>@order.OrderDate.ToString("dd MMM yyyy")</td>
+
+                <td>₹@order.TotalAmount</td>
+
+                <td>
+
+                    @if(order.Status=="Pending")
+                    {
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+                    }
+                    else if(order.Status=="Processing")
+                    {
+                        <span class="badge bg-primary">
+                            Processing
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">
+                            Delivered
+                        </span>
+                    }
+
+                </td>
+
+                <td>
+
+                    <a asp-action="EditOrder"
+                       asp-route-id="@order.OrderId"
+                       class="btn btn-primary btn-sm">
+
+                        Update Status
+
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+</div>

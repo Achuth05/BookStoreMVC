@@ -1,0 +1,126 @@
+@model BookStoreMVC.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold mb-4">
+        Order #@Model.OrderId
+    </h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <strong>Order Date</strong><br />
+                    @Model.OrderDate.ToString("dd MMM yyyy HH:mm")
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Status</strong><br />
+
+                    @if (Model.Status == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    }
+                    else if (Model.Status == "Processing")
+                    {
+                        <span class="badge bg-primary">Proceesing</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Delivered</span>
+                    }
+
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Total Amount</strong><br />
+                    ₹@Model.TotalAmount
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Book</th>
+
+                <th>Title</th>
+
+                <th>Price</th>
+
+                <th>Quantity</th>
+
+                <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @foreach (var item in Model.OrderItems!)
+        {
+            <tr>
+
+                <td width="90">
+
+                    <img src="@item.Book?.ImageUrl"
+                         width="60"
+                         height="80"
+                         style="object-fit:cover;" />
+
+                </td>
+
+                <td>
+
+                    @item.Book?.Title
+
+                </td>
+
+                <td>
+
+                    ₹@item.Price
+
+                </td>
+
+                <td>
+
+                    @item.Quantity
+
+                </td>
+
+                <td>
+
+                    ₹@(item.Price * item.Quantity)
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+    <a asp-action="MyOrders"
+       class="btn btn-secondary">
+
+        ← Back to My Orders
+
+    </a>
+
+</div>
