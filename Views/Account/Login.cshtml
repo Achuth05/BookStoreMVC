@@ -1,51 +1,77 @@
 @model BookStoreMVC.Models.LoginViewModel
 
 @{
-    Layout = "_LoginLayout";
+    Layout = "_AuthLayout";
     ViewData["Title"] = "Login";
 }
 
-<div class="container mt-5">
+<div class="auth-container">
 
-    <div class="row justify-content-center">
+    <div class="auth-card">
 
-        <div class="col-md-5">
+        <div class="auth-logo">
+            📚
+        </div>
 
-            <div class="card shadow">
+        <h2 class="auth-title">
+            Welcome Back
+        </h2>
 
-                <div class="card-header bg-dark text-white text-center">
-                    <h3>Login</h3>
-                </div>
+        <p class="auth-subtitle">
+            Login to continue shopping
+        </p>
 
-                <div class="card-body">
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
 
-                    <form asp-action="Login" method="post">
+        <form asp-action="Login" method="post">
 
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label"></label>
+            <div class="mb-3">
 
-                            <input asp-for="Email" class="form-control"/>
+                <label asp-for="Email" class="form-label"></label>
 
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
+                <input asp-for="Email" class="form-control" />
 
-                        <div class="mb-3">
-                            <label asp-for="Password" class="form-label"></label>
-
-                            <input asp-for="Password" type="password" class="form-control"/>
-
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-dark w-100">
-                            Login
-                        </button>
-
-                    </form>
-
-                </div>
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
 
             </div>
+
+            <div class="mb-4">
+
+                <label asp-for="Password" class="form-label"></label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger"></span>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+
+            Don't have an account?
+
+            <a asp-action="Register">
+
+                Register
+
+            </a>
 
         </div>
 
@@ -53,8 +79,7 @@
 
 </div>
 
-@section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
 }

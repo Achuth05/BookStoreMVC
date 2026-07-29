@@ -1,0 +1,94 @@
+@model BookStoreMVC.Models.User
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            📚
+        </div>
+
+        <h2 class="auth-title">
+            Create Account
+        </h2>
+
+        <p class="auth-subtitle">
+            Join BookStore today
+        </p>
+
+        <form asp-action="Register" method="post">
+
+            <div class="mb-3">
+
+                <label asp-for="Name"
+                       class="form-label"></label>
+
+                <input asp-for="Name"
+                       class="form-control" />
+
+                <span asp-validation-for="Name"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Email"
+                       class="form-label"></label>
+
+                <input asp-for="Email"
+                       class="form-control" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label asp-for="Password"
+                       class="form-label"></label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger"></span>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-success w-100">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+
+            Already have an account?
+
+            <a asp-action="Login">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,80 +1,176 @@
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="container mt-5">
+<h2 class="fw-bold mb-4">
 
-    <h2 class="mb-4">Admin Dashboard</h2>
+    Admin Dashboard
 
-    <div class="row">
+</h2>
 
-        <div class="col-md-4 mb-4">
+<div class="row">
 
-            <div class="card shadow">
+    <div class="col-md-3 mb-4">
 
-                <div class="card-body text-center">
+        <div class="card shadow border-0 bg-primary text-white">
 
-                    <h4>📂 Categories</h4>
+            <div class="card-body text-center">
 
-                    <p>Manage book categories</p>
+                <h1>📚</h1>
 
-                    <a asp-action="Categories"
-                       asp-controller="Admin"
-                       class="btn btn-primary">
-                        Manage Categories
-                    </a>
+                <h2>@ViewBag.TotalBooks</h2>
 
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card shadow">
-
-                <div class="card-body text-center">
-
-                    <h4>📚 Books</h4>
-
-                    <p>Manage books</p>
-
-                    <a asp-action="Books"
-                       asp-controller="Admin"
-                       class="btn btn-success">
-                        Manage Books
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card shadow">
-
-                <div class="card-body text-center">
-
-                    <h4>📦 Orders</h4>
-
-                    <p>View customer orders</p>
-
-                    <a asp-action="ManageOrders"
-                       asp-controller="Admin"
-                       class="btn btn-warning">
-                        Manage Orders
-                    </a>
-
-                </div>
+                <h5>Total Books</h5>
 
             </div>
 
         </div>
 
     </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow border-0 bg-success text-white">
+
+            <div class="card-body text-center">
+
+                <h1>📂</h1>
+
+                <h2>@ViewBag.TotalCategories</h2>
+
+                <h5>Categories</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow border-0 bg-warning text-dark">
+
+            <div class="card-body text-center">
+
+                <h1>👥</h1>
+
+                <h2>@ViewBag.TotalCustomers</h2>
+
+                <h5>Customers</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow border-0 bg-danger text-white">
+
+            <div class="card-body text-center">
+
+                <h1>🧾</h1>
+
+                <h2>@ViewBag.TotalOrders</h2>
+
+                <h5>Total Orders</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-2">
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow">
+
+            <div class="card-body text-center">
+
+                <h3>⏳</h3>
+
+                <h2>@ViewBag.PendingOrders</h2>
+
+                <h5>Pending Orders</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow">
+
+            <div class="card-body text-center">
+
+                <h3>✅</h3>
+
+                <h2>@ViewBag.DeliveredOrders</h2>
+
+                <h5>Delivered Orders</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow">
+
+            <div class="card-body text-center">
+
+                <h3>💰</h3>
+
+                <h2>₹@ViewBag.TotalRevenue</h2>
+
+                <h5>Total Revenue</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr />
+
+<h4 class="mb-3">
+
+    Quick Actions
+
+</h4>
+
+<div class="d-flex gap-3">
+
+    <a asp-action="Books"
+       class="btn btn-primary">
+
+        Manage Books
+
+    </a>
+
+    <a asp-action="Categories"
+       class="btn btn-success">
+
+        Categories
+
+    </a>
+
+    <a asp-action="ManageOrders"
+       class="btn btn-warning">
+
+        Orders
+
+    </a>
 
 </div>

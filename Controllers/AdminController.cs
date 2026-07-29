@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using BookStoreMVC.Filters;
 
 namespace BookStoreMVC.Controllers
 {
+    [RoleAuthorize("Admin")]
     public class AdminController : Controller
     {
         private readonly BookStoreContext _context;
@@ -17,6 +19,16 @@ namespace BookStoreMVC.Controllers
 
         public IActionResult Dashboard()
         {
+            ViewBag.TotalBooks = _context.Books.Count();
+            ViewBag.TotalCategories = _context.Categories.Count();
+            ViewBag.TotalCustomers = _context.Users.Count(u => u.Role == "Customer");
+            ViewBag.TotalOrders = _context.Orders.Count();
+            ViewBag.PendingOrders = _context.Orders.Count(o => o.Status == "Pending");
+            ViewBag.DeliveredOrders = _context.Orders.Count(o => o.Status == "Delivered");
+            ViewBag.TotalRevenue = _context.Orders
+                                        .Where(o => o.Status == "Delivered")
+                                        .Sum(o => (decimal?)o.TotalAmount) ?? 0;
+
             return View();
         }
 

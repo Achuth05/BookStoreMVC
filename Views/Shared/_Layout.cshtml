@@ -98,16 +98,8 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link"
-                                   asp-controller="Cart"
-                                   asp-action="Index">
-                                    Cart
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="Order"
-                                   asp-action="MyOrders">
+                                asp-controller="Order"
+                                asp-action="MyOrders">
                                     My Orders
                                 </a>
                             </li>
@@ -131,7 +123,24 @@
                     </button>
 
                 </form>
+                @if (Context.Session.GetString("Role") == "Customer")
+                {
+                    <a class="btn btn-outline-light me-3 position-relative"
+                    asp-controller="Cart"
+                    asp-action="Index">
 
+                        <i class="bi bi-cart3"></i>
+
+                        Cart
+
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            @ViewBag.CartCount
+
+                        </span>
+
+                    </a>
+                }
                 <!-- Right Menu -->
                 <ul class="navbar-nav">
 

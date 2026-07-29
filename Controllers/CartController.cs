@@ -1,9 +1,11 @@
 using BookStoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BookStoreMVC.Filters;
 
 namespace BookStoreMVC.Controllers
 {
+    [RoleAuthorize("Customer")]
     public class CartController : Controller
     {
         private readonly BookStoreContext _context;
@@ -25,6 +27,16 @@ namespace BookStoreMVC.Controllers
                                     .Where(c => c.UserId == userId)
                                     .ToList();
 
+            if (userId != null)
+            {
+                ViewBag.CartCount = _context.Cart
+                                            .Where(c => c.UserId == userId)
+                                            .Sum(c => c.Quantity);
+            }
+            else
+            {
+                ViewBag.CartCount = 0;
+            }
             return View(cartItems);
         }
         public IActionResult Remove(int id)
@@ -156,7 +168,49 @@ namespace BookStoreMVC.Controllers
         }
         public IActionResult Success()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId != null)
+            {
+                ViewBag.CartCount = _context.Cart
+                                            .Where(c => c.UserId == userId)
+                                            .Sum(c => c.Quantity);
+            }
+            else
+            {
+                ViewBag.CartCount = 0;
+            }
             return View();
+        }
+        public IActionResult BuyNow(int id)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
+            var cartItem = _context.Cart.FirstOrDefault(c =>
+                            c.UserId == userId &&
+                            c.BookId == id);
+
+            if (cartItem == null)
+            {
+                Cart item = new Cart
+                {
+                    UserId = userId.Value,
+                    BookId = id,
+                    Quantity = 1
+                };
+
+                _context.Cart.Add(item);
+            }
+            else
+            {
+                cartItem.Quantity++;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

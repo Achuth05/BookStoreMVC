@@ -8,34 +8,106 @@
     Book Collection
 </h2>
 
-<div class="row mb-4">
+<form method="get">
 
-    <div class="col-md-5">
-        <input type="text"
-               class="form-control"
-               placeholder="Search books...">
+    <div class="row mb-4">
+
+        <div class="col-md-5">
+
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Search books..."
+                   value="@ViewBag.Search" />
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select name="category"
+                    class="form-select">
+
+                <option value="">All Categories</option>
+
+                @foreach (var category in ViewBag.Categories)
+                {
+                    if (ViewBag.SelectedCategory != null &&
+                        ViewBag.SelectedCategory == category.CategoryId)
+                    {
+                        <option value="@category.CategoryId" selected>
+                            @category.CategoryName
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@category.CategoryId">
+                            @category.CategoryName
+                        </option>
+                    }
+                }
+
+            </select>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select name="sort"
+                    class="form-select">
+
+                @if (ViewBag.Sort == null)
+                {
+                    <option value="" selected>Sort By</option>
+                }
+                else
+                {
+                    <option value="">Sort By</option>
+                }
+
+                @if (ViewBag.Sort == "priceAsc")
+                {
+                    <option value="priceAsc" selected>Price Low → High</option>
+                }
+                else
+                {
+                    <option value="priceAsc">Price Low → High</option>
+                }
+
+                @if (ViewBag.Sort == "priceDesc")
+                {
+                    <option value="priceDesc" selected>Price High → Low</option>
+                }
+                else
+                {
+                    <option value="priceDesc">Price High → Low</option>
+                }
+
+                @if (ViewBag.Sort == "name")
+                {
+                    <option value="name" selected>Name A → Z</option>
+                }
+                else
+                {
+                    <option value="name">Name A → Z</option>
+                }
+
+            </select>
+
+        </div>
+
+        <div class="col-md-1">
+
+            <button class="btn btn-primary w-100">
+
+                Go
+
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="col-md-3">
-        <select class="form-select">
-            <option>All Categories</option>
-            <option>Programming</option>
-            <option>Fiction</option>
-            <option>Science</option>
-            <option>History</option>
-        </select>
-    </div>
-
-    <div class="col-md-4">
-        <select class="form-select">
-            <option>Sort By</option>
-            <option>Price Low → High</option>
-            <option>Price High → Low</option>
-            <option>Name A → Z</option>
-        </select>
-    </div>
-
-</div>
+</form>
 
 <div class="row">
 
@@ -59,6 +131,10 @@
                         @book.Author
                     </p>
 
+                    <p class="small text-secondary">
+                        @book.Category?.CategoryName
+                    </p>
+
                     <h6>
                         ⭐⭐⭐⭐⭐
                     </h6>
@@ -80,7 +156,10 @@
 
                     </a>
 
-                    <a class="btn btn-success w-100">
+                    <a asp-controller="Cart"
+                       asp-action="BuyNow"
+                       asp-route-id="@book.BookId"
+                       class="btn btn-success w-100">
 
                         Buy Now
 

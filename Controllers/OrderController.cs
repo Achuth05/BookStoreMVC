@@ -1,9 +1,11 @@
 using BookStoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BookStoreMVC.Filters;
 
 namespace BookStoreMVC.Controllers
 {
+    [RoleAuthorize("Customer")]
     public class OrderController : Controller
     {
         private readonly BookStoreContext _context;
@@ -25,6 +27,16 @@ namespace BookStoreMVC.Controllers
                                  .OrderByDescending(o => o.OrderDate)
                                  .ToList();
 
+            if (userId != null)
+            {
+                ViewBag.CartCount = _context.Cart
+                                            .Where(c => c.UserId == userId)
+                                            .Sum(c => c.Quantity);
+            }
+            else
+            {
+                ViewBag.CartCount = 0;
+            }
             return View(orders);
         }
         public IActionResult Details(int id)
@@ -43,6 +55,16 @@ namespace BookStoreMVC.Controllers
             if (order == null)
                 return NotFound();
 
+            if (userId != null)
+            {
+                ViewBag.CartCount = _context.Cart
+                                            .Where(c => c.UserId == userId)
+                                            .Sum(c => c.Quantity);
+            }
+            else
+            {
+                ViewBag.CartCount = 0;
+            }
             return View(order);
         }
     }

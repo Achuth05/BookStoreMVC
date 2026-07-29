@@ -70,8 +70,8 @@ else
                 <td>
 
                     <a asp-action="Decrease"
-                    asp-route-id="@item.CartId"
-                    class="btn btn-outline-secondary btn-sm">
+                       asp-route-id="@item.CartId"
+                       class="btn btn-outline-secondary btn-sm">
 
                         -
 
@@ -84,8 +84,8 @@ else
                     </span>
 
                     <a asp-action="Increase"
-                    asp-route-id="@item.CartId"
-                    class="btn btn-outline-secondary btn-sm">
+                       asp-route-id="@item.CartId"
+                       class="btn btn-outline-secondary btn-sm">
 
                         +
 
@@ -125,23 +125,131 @@ else
 
             Grand Total :
             <span class="text-success">
+
                 ₹@Model.Sum(x => x.Quantity * (x.Book?.Price ?? 0))
+
             </span>
 
         </h3>
 
-        <form asp-action="Checkout"
-            asp-controller="Cart"
-            method="post">
+        <button class="btn btn-success btn-lg"
+                data-bs-toggle="modal"
+                data-bs-target="#checkoutModal">
 
-            <button type="submit"
-                    class="btn btn-success btn-lg">
+            Proceed to Checkout
 
-                Proceed to Checkout
+        </button>
 
-            </button>
+    </div>
 
-        </form>
+    <!-- Checkout Confirmation Modal -->
+
+    <div class="modal fade"
+         id="checkoutModal"
+         tabindex="-1"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        Confirm Your Order
+
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="text-center mb-3">
+
+                        <h1>🛒</h1>
+
+                        <h5>
+
+                            Review Your Order
+
+                        </h5>
+
+                    </div>
+
+                    <p>
+
+                        You are about to purchase the following items:
+
+                    </p>
+
+                    <ul class="list-group mb-3">
+
+                        @foreach (var item in Model)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+
+                                <span>
+
+                                    @item.Book?.Title
+                                    × @item.Quantity
+
+                                </span>
+
+                                <strong>
+
+                                    ₹@(item.Quantity * (item.Book?.Price ?? 0))
+
+                                </strong>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                    <h4 class="text-success text-end">
+
+                        Total :
+                        ₹@Model.Sum(x => x.Quantity * (x.Book?.Price ?? 0))
+
+                    </h4>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <form asp-action="Checkout"
+                          asp-controller="Cart"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-success">
+
+                            Confirm Order
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 }

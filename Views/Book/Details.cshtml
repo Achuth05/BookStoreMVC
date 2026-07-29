@@ -78,7 +78,10 @@
 
                 </form>
 
-                <a class="btn btn-success btn-lg">
+                <a asp-controller="Cart"
+                asp-action="BuyNow"
+                asp-route-id="@Model.BookId"
+                class="btn btn-success btn-lg">
 
                     Buy Now
 
