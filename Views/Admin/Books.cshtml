@@ -67,17 +67,23 @@
 
                 <td>
 
-                    <a asp-action="EditBook"
+                    <a class="btn btn-warning btn-sm"
+                    asp-action="EditBook"
                     asp-route-id="@book.BookId"
-                    class="btn btn-primary btn-sm">
-                        Edit
+                    title="Edit">
+
+                        <i class="bi bi-pencil-square"></i>
+
                     </a>
 
-                    <a asp-action="DeleteBook"
+                    <a class="btn btn-danger btn-sm"
+                    asp-action="DeleteBook"
                     asp-route-id="@book.BookId"
-                    class="btn btn-danger btn-sm"
-                    onclick="return confirm('Delete this book?');">
-                        Delete
+                    title="Delete"
+                    onclick="return confirm('Delete this item?');">
+
+                        <i class="bi bi-trash"></i>
+
                     </a>
 
                 </td>

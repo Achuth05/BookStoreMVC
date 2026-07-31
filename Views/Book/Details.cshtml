@@ -44,8 +44,26 @@
             </p>
 
             <p>
-                <strong>Available Stock:</strong>
-                @Model.Stock
+
+                <strong>Availability :</strong>
+
+                @if (Model.Stock > 0)
+                {
+                    <span class="badge bg-success">
+
+                        In Stock (@Model.Stock)
+
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">
+
+                        Out of Stock
+
+                    </span>
+                }
+
             </p>
 
             <h3 class="text-success fw-bold mb-4">
@@ -58,34 +76,45 @@
                 @Model.Description
             </p>
 
-            <div class="mt-4">
+            <<div class="mt-4">
 
-                <form asp-action="AddToCart"
-                    asp-controller="Book"
-                    method="post"
-                    class="d-inline">
+                @if (Model.Stock > 0)
+                {
+                    <form asp-action="AddToCart"
+                        asp-controller="Book"
+                        method="post"
+                        class="d-inline">
 
-                    <input type="hidden"
-                        name="bookId"
-                        value="@Model.BookId" />
+                        <input type="hidden"
+                            name="bookId"
+                            value="@Model.BookId" />
 
-                    <button type="submit"
-                            class="btn btn-warning btn-lg me-2">
+                        <button type="submit"
+                                class="btn btn-warning btn-lg me-2">
 
-                        Add to Cart
+                            Add to Cart
+
+                        </button>
+
+                    </form>
+
+                    <a asp-controller="Cart"
+                    asp-action="BuyNow"
+                    asp-route-id="@Model.BookId"
+                    class="btn btn-success btn-lg">
+
+                        Buy Now
+
+                    </a>
+                }
+                else
+                {
+                    <button class="btn btn-secondary btn-lg" disabled>
+
+                        Out of Stock
 
                     </button>
-
-                </form>
-
-                <a asp-controller="Cart"
-                asp-action="BuyNow"
-                asp-route-id="@Model.BookId"
-                class="btn btn-success btn-lg">
-
-                    Buy Now
-
-                </a>
+                }
 
             </div>
 

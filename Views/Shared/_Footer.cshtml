@@ -1,42 +1,56 @@
-<footer class="bg-dark text-light mt-5">
+<footer class="bg-dark text-white mt-5">
 
-    <div class="container py-5">
+    <div class="container py-4">
 
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-6">
 
-                <h4>BookStore</h4>
+                <h5>📚 BookStore</h5>
 
-                <p>
+                <p class="text-light">
 
-                    Your one-stop destination for books,
-                    learning and knowledge.
+                    Your one-stop destination for quality books across every category.
 
                 </p>
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6 text-md-end">
 
-                <h5>Quick Links</h5>
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="text-white text-decoration-none me-3">
 
-                <ul class="list-unstyled">
-                    <li><a asp-controller="Home" asp-action="Index" class="text-light text-decoration-none">Home</a></li>
-                    <li><a asp-controller="Book" asp-action="Index" class="text-light text-decoration-none">Books</a></li>
-                    <li><a asp-controller="Book" asp-action="Categories" class="text-light text-decoration-none">Categories</a></li>
+                    Home
 
-                </ul>
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="About"
+                   class="text-white text-decoration-none me-3">
+
+                    About
+
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Contact"
+                   class="text-white text-decoration-none">
+
+                    Contact
+
+                </a>
+
+                <hr class="border-light">
+
+                <small>
+
+                    © 2026 BookStore. All Rights Reserved.
+
+                </small>
 
             </div>
-
-        </div>
-
-        <hr>
-
-        <div class="text-center">
-
-            © 2026 BookStore. All Rights Reserved.
 
         </div>
 

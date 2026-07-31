@@ -142,7 +142,13 @@ namespace BookStoreMVC.Controllers
             }
 
             _context.SaveChanges();
-
+            var book = _context.Books.FirstOrDefault(b => b.BookId == bookId);
+            if (book == null)
+                return NotFound();
+            if (book.Stock <= 0)
+            {
+                return RedirectToAction("Details", new { id = book.BookId });
+            }
             return RedirectToAction("Index", "Cart");
         }
     }

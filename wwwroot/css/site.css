@@ -6,7 +6,9 @@ body{
 a{
     text-decoration:none;
 }
-
+.hero-image{
+    border-radius:20px;
+}
 .card{
     border:none;
     border-radius:12px;
@@ -14,32 +16,35 @@ a{
 
 .btn{
     border-radius:8px;
+    transition: 0.3 ease;
 }
 
 .card{
-
-    transition:0.3s;
-
+    transition: all .3s ease;
 }
 
 .card:hover{
-
-    transform:translateY(-8px);
-
-    box-shadow:0 10px 25px rgba(0,0,0,.2);
-
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,.15);
 }
-
-.nav-link{
-
+.card-img-top{
     transition:.3s;
-
 }
 
-.nav-link:hover{
+.card:hover .card-img-top{
+    transform:scale(1.03);
+}
 
-    color:#0d6efd !important;
+.navbar .nav-link{
+    color:white !important;
+    transition:.25s;
+    border-radius:8px;
+}
 
+.navbar .nav-link:hover{
+    transform:translateY(-2px);
+    background:#ffffff20;
+    color:white !important;
 }
 /* ===========================
    AUTH PAGES

@@ -143,6 +143,19 @@
                         ₹@book.Price
                     </h4>
 
+                    @if (book.Stock > 0)
+                    {
+                        <span class="badge bg-success">
+                            In Stock (@book.Stock)
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            Out of Stock
+                        </span>
+                    }
+
                 </div>
 
                 <div class="card-footer bg-white border-0">
@@ -156,14 +169,25 @@
 
                     </a>
 
-                    <a asp-controller="Cart"
-                       asp-action="BuyNow"
-                       asp-route-id="@book.BookId"
-                       class="btn btn-success w-100">
+                    @if (book.Stock > 0)
+                    {
+                        <a asp-controller="Cart"
+                        asp-action="BuyNow"
+                        asp-route-id="@book.BookId"
+                        class="btn btn-success w-100">
 
-                        Buy Now
+                            Buy Now
 
-                    </a>
+                        </a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary w-100" disabled>
+
+                            Out of Stock
+
+                        </button>
+                    }
 
                 </div>
 

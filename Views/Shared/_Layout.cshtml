@@ -133,11 +133,15 @@
 
                         Cart
 
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @if (ViewBag.CartCount != null && (int)ViewBag.CartCount > 0)
+                        {
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                style="font-size:0.7rem;">
 
-                            @ViewBag.CartCount
+                                @ViewBag.CartCount
 
-                        </span>
+                            </span>
+                        }
 
                     </a>
                 }

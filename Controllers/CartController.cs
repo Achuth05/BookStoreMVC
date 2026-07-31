@@ -188,6 +188,18 @@ namespace BookStoreMVC.Controllers
             if (userId == null)
                 return RedirectToAction("Login", "Account");
 
+            // Check if book exists
+            var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+
+            if (book == null)
+                return NotFound();
+
+            // Check stock
+            if (book.Stock <= 0)
+            {
+                return RedirectToAction("Details", "Book", new { id });
+            }
+
             var cartItem = _context.Cart.FirstOrDefault(c =>
                             c.UserId == userId &&
                             c.BookId == id);
